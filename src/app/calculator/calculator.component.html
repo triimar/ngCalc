@@ -1,3 +1,22 @@
-<p>calculator works! Button is : {{show}}</p>
-<app-display></app-display>
-<app-button (buttonClick)="onButtonClick($event)"></app-button>
+
+<div class="calculator-container">
+    <div class="display">{{display}}</div>
+    <div class="button-grid">
+        <div class="digit-buttons">
+            <button class="button" *ngFor="let digit of digitButtons" (click)="onDigitClick(digit)">
+                <span>{{ digit }}</span>
+            </button>
+        </div>
+        <div class="operator-buttons">
+            <button class="button" *ngFor="let operator of operatorButtons" (click)="onDigitClick(operator)">
+                <span>{{ operator }}</span>
+            </button>
+        </div>
+        <div class="control-buttons">
+             <button class="button" *ngFor="let controller of controlButtons" (click)="onDigitClick(controller)">
+                <span>{{ controller }}</span>
+            </button>
+        </div>
+</div>
+
+
