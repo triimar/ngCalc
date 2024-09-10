@@ -51,9 +51,14 @@
 .control-buttons {
     grid-column: span 4;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 5px;
 
+}
+
+.control-buttons button:last-child {
+    grid-column: span 2;
+    height: 100%;
 }
 
 .button {

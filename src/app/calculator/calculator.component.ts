@@ -13,12 +13,39 @@ export class CalculatorComponent {
   display: string = '';
   digitButtons = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '0'];
   operatorButtons = ['+', '-', '*', '/'];
-  controlButtons = ['C', '='];
+  controlButtons = ['CE', 'C', '='];
   
 
   onDigitClick(value: string) {
-    console.log('Button: ', value);
     this.display += value;
   }
 
+  onClick(value: string) {
+    switch (value) {
+      case 'CE':
+        this.display = '';
+        break;
+      case 'C':
+        this.display = '';
+        break;
+      case '=':
+        console.log(value);
+        break;
+      case '+':
+        console.log(value);
+        break;
+      case '-':
+        console.log(value);
+        break;
+      case '*':
+        console.log(value);
+        break;
+      case '/':
+        console.log(value);
+        break;
+      default:
+        this.onDigitClick(value);
+      
+    }
+  }
 }
