@@ -11,6 +11,10 @@ import { CommonModule } from '@angular/common';
 
 export class CalculatorComponent {
   display: string = '';
+  previousResult: number|null  = null;
+  operator: string = '';
+
+
   digitButtons = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '0'];
   operatorButtons = ['+', '-', '*', '/'];
   controlButtons = ['CE', 'C', '='];
@@ -24,12 +28,14 @@ export class CalculatorComponent {
     switch (value) {
       case 'CE':
         this.display = '';
+        this.previousResult = 0;
         break;
       case 'C':
         this.display = '';
         break;
       case '=':
         console.log(value);
+        this.operator = '';
         break;
       case '+':
         console.log(value);
@@ -48,4 +54,17 @@ export class CalculatorComponent {
       
     }
   }
+  calculate() {
+    if (this.operator === '+') {
+      this.previousResult += parseFloat(this.display);
+    } else if (this.operator === '-') {
+      this.previousResult -= parseFloat(this.display);
+    } else if (this.operator === '*') {
+      this.previousResult *= parseFloat(this.display);
+    } else if (this.operator === '/') {
+      this.previousResult /= parseFloat(this.display);
+    }
+    this.display = this.previousResult.toString();
+  }
 }
+
