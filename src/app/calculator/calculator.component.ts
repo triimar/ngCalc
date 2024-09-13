@@ -11,12 +11,13 @@ import { CommonModule } from '@angular/common';
 
 export class CalculatorComponent {
   display: string = '';
-  previousResult: number|null  = null;
+  previousResult: number = 0;
   operator: string = '';
 
 
-  digitButtons = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '0'];
+  digitButtons = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '+/-', '0', '.'];
   operatorButtons = ['+', '-', '*', '/'];
+
   controlButtons = ['CE', 'C', '='];
   
 
