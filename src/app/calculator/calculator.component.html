@@ -1,20 +1,20 @@
 
 <div class="calculator-container">
-    <div class="display">{{display}}</div>
+    <div class="display">{{getDisplay()}}</div>
     <div class="button-grid">
+        <div class="control-buttons">
+             <button class="button" *ngFor="let controller of controlButtons" (click)="onControlClick(controller)">
+                <span>{{ controller }}</span>
+            </button>
+        </div>
         <div class="digit-buttons">
-            <button class="button" *ngFor="let digit of digitButtons" (click)="onClick(digit)">
+            <button class="button" *ngFor="let digit of digitButtons" (click)="onDigitClick(digit)">
                 <span>{{ digit }}</span>
             </button>
         </div>
         <div class="operator-buttons">
-            <button class="button" *ngFor="let operator of operatorButtons" (click)="onClick(operator)">
+            <button class="button" *ngFor="let operator of operatorButtons" (click)="onOperatorClick(operator)">
                 <span>{{ operator }}</span>
-            </button>
-        </div>
-        <div class="control-buttons">
-             <button class="button" *ngFor="let controller of controlButtons" (click)="onClick(controller)">
-                <span>{{ controller }}</span>
             </button>
         </div>
     </div>
