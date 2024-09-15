@@ -24,14 +24,6 @@
 
 }
 
-
-    /* overflow: hidden; 
-    white-space: nowrap; 
-    text-overflow: ellipsis; 
-    display: flex;
-    justify-content: flex-end; */
-
-
 .button-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

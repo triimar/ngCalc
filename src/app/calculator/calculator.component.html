@@ -1,6 +1,6 @@
-
-<div class="calculator-container">
-    <div class="display">{{getDisplay()}}</div>
+<!-- output and section for accessibility for screen readers -->
+<section class="calculator-container">
+    <output class="display">{{getDisplay()}}</output>
     <div class="button-grid">
         <div class="control-buttons">
              <button class="button" *ngFor="let controller of controlButtons" (click)="onControlClick(controller)">
@@ -18,6 +18,6 @@
             </button>
         </div>
     </div>
-</div>
+</section>
 
 

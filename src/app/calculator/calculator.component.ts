@@ -10,9 +10,10 @@ import { CommonModule } from '@angular/common';
 })
 
 export class CalculatorComponent {
-  display: string = '0';
+  display: string = '';
   previousResult: number = 0;
   operator: string = '';
+  readonly precision: number = 10;
 
 
   digitButtons = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '+/-', '0', '.'];
@@ -20,33 +21,58 @@ export class CalculatorComponent {
 
   controlButtons = ['C', 'CE', '='];
   
+  getDisplay(): string {
+    return this.display === '' ? this.previousResult.toString() : this.display;
+  }
 
-  onDigitClick(value: string) {
-
-    if (value === '.' && this.display.indexOf('.') !== -1) {
+  setNegative() {
+    if (this.display === '0') {
       return;
     }
-    if (value === '+/-') {
-      if (this.display.charAt(0) === '-') {
-        this.display = this.display.substring(1);
-      } else {
-        this.display = '-' + this.display;
-      }
+    if (this.display.charAt(0) === '-') {
+      this.display = this.display.substring(1);
+    } else {
+      this.display === '' ? this.previousResult *= -1 : this.display = '-' + this.display;
+    }
+  }
+
+  addDecimal() {
+    if (this.display.indexOf('.') !== -1) {
       return;
     }
-    if (this.display === '0' && value !== '.') {
+    if (this.display === '') {
+      this.display += '0';
+    }
+    this.display += '.';
+  }
+
+  addDigit(value: string) {
+    if (this.display === '' || this.display === '0') {
       this.display = value;
     } else {
       this.display += value;
     }
   }
 
-  getDisplay(): string {
-    return this.display === '' ? this.previousResult.toString() : this.display;
+  onDigitClick(value: string) {
+    this.DebugLog("Before " + value);
+    switch (value) {
+      case '.':
+        this.addDecimal();
+        break;
+      case '+/-':
+        this.setNegative();
+        break;
+      default:
+        this.addDigit(value);
+        break;
+    }
+    this.DebugLog("After " + value);
   }
 
+
   onControlClick(value: string) {
-    this.logAll();
+    this.DebugLog("Before " + value);
     switch (value) {
       case 'C':
         this.display = '0';
@@ -59,20 +85,22 @@ export class CalculatorComponent {
         this.calculate();
         this.operator = '';
         this.display = '';
-        // this.previousResult = 0;
         break;
     }
+    this.DebugLog("After " + value);
   }
 
   onOperatorClick(value: string) {
-    this.logAll();
-    this.calculate();
-    if (this.operator === '' && this.display !== '') {
-      this.previousResult = parseFloat(this.display);
+    this.DebugLog("Before " + value);
+    if (this.display !== '') {
+      this.calculate();
+      if (this.operator === '') {
+        this.previousResult = parseFloat(this.display);
+      }
     }
     this.operator = value;
-    this.display = '';
-    this.logAll(); 
+    this.display = ''; 
+    this.DebugLog("After " + value);
   }
 
   roundTo(value: number, decimals: number): number {
@@ -81,21 +109,19 @@ export class CalculatorComponent {
 
   calculate() {
     const currentNumber = parseFloat(this.display);
-    const precision = 10;  // Adjust precision as needed
-
     if (this.operator === '+') {
-      this.previousResult = this.roundTo(this.previousResult + currentNumber, precision);
+      this.previousResult = this.roundTo(this.previousResult + currentNumber, this.precision);
     } else if (this.operator === '-') {
-      this.previousResult = this.roundTo(this.previousResult - currentNumber, precision);
+      this.previousResult = this.roundTo(this.previousResult - currentNumber, this.precision);
     } else if (this.operator === '*') {
-      this.previousResult = this.roundTo(this.previousResult * currentNumber, precision);
+      this.previousResult = this.roundTo(this.previousResult * currentNumber, this.precision);
     } else if (this.operator === '/') {
-      this.previousResult = this.roundTo(this.previousResult / currentNumber, precision);
+      this.previousResult = this.roundTo(this.previousResult / currentNumber, this.precision);
     }
   }
 
-  logAll() {
-    console.log("Prev:", this.previousResult, "Operator: ", this.operator, "Display: ", this.display);
+  DebugLog(value: string) {
+    console.log(value,"Prev:", this.previousResult, "Operator: ", this.operator, "Display: ", this.display);
   }
 }
 
